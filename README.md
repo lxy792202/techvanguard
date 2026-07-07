@@ -161,23 +161,6 @@ techvanguard/
 
 ---
 
-## 面试亮点
 
-| 考察点 | 项目体现 |
-|--------|---------|
-| **Agent 编排** | Pipeline 模式：采集 → 去重 → 摘要 → 分类 → 趋势 |
-| **MCP 协议** | 实现 Server 端（暴露工具）和 Client 端（调用工具） |
-| **LLM 应用** | 摘要生成、分类打标、趋势分析，全链路 AI 驱动 |
-| **全栈工程** | Next.js + FastAPI 全链路，组件化架构 |
-| **向量数据库** | ChromaDB 语义去重 + 相似搜索 |
-| **实时交互** | SSE 推送 Agent 思考过程 |
-| **自动化** | APScheduler 定时采集 |
-| **数据处理** | 多源异构数据清洗、结构化、去重 |
-| **UI/UX** | shadcn/ui + Recharts + 响应式 |
-| **DevOps** | Docker 容器化部署 |
-
----
-
-## License
 
 MIT
