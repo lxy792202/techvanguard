@@ -1,0 +1,32 @@
+# TechVanguard Backend Dependencies
+# No version pins — pip resolves compatibilities automatically
+
+# Web framework
+fastapi>=0.100.0
+uvicorn[standard]>=0.20.0
+sse-starlette>=1.0.0
+
+# Database
+sqlalchemy>=2.0.0
+aiosqlite>=0.19.0
+chromadb>=0.4.0
+
+# LLM (OpenAI-compatible SDK for DeepSeek)
+openai>=1.0.0
+
+# Scheduling
+apscheduler>=3.10.0
+
+# MCP SDK (Model Context Protocol)
+mcp>=1.0.0
+
+# HTTP client
+httpx>=0.25.0
+
+# HTML parsing
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
+
+# Utilities
+python-dotenv>=1.0.0
+feedparser>=6.0.0
