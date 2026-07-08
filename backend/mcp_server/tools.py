@@ -72,7 +72,7 @@ async def search_arxiv(query: str = "cat:cs.AI OR cat:cs.LG OR cat:cs.CL", max_r
         "max_results": min(max_results, 50),
     }
     async with httpx.AsyncClient(timeout=30.0) as client:
-        resp = await client.get("http://export.arxiv.org/api/query", params=params)
+        resp = await client.get("https://export.arxiv.org/api/query", params=params)
         resp.raise_for_status()
 
     feed = feedparser.parse(resp.text)

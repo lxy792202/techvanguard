@@ -1,55 +1,40 @@
 "use client"
 
 import Link from "next/link"
-import { Card } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { getCategoryLabel, getCategoryIcon, SOURCE_LABELS, type Item } from "@/lib/api"
-import { Clock, Star, TrendingUp } from "lucide-react"
+import { Clock, Star } from "lucide-react"
 
-export default function HotCard({ item }: { item: Item }) {
+export default function HotCard({ item, rank }: { item: Item; rank: number }) {
   const timeAgo = item.collected_at
     ? (() => {
         const diff = Date.now() - new Date(item.collected_at).getTime()
-        const hours = Math.floor(diff / 3600000)
-        if (hours < 1) return "刚刚"
-        if (hours < 24) return `${hours}小时前`
-        return `${Math.floor(hours / 24)}天前`
+        const h = Math.floor(diff / 3600000)
+        return h < 1 ? "刚刚" : h < 24 ? `${h}h` : `${Math.floor(h / 24)}d`
       })()
     : ""
 
+  const rankColors = ["bg-rose-500", "bg-amber-500", "bg-blue-500", "bg-muted-foreground", "bg-muted-foreground"]
+
   return (
     <Link href={`/detail/${item.id}`}>
-      <Card className="group flex items-start gap-3 border-l-4 border-l-primary/60 p-3 transition-all hover:bg-accent/50 hover:shadow-sm">
-        <span className="mt-0.5 text-lg">{getCategoryIcon(item.category)}</span>
+      <div className="card-lift group flex items-center gap-2.5 rounded-lg border bg-card p-2.5 shadow-sm">
+        <div className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md ${rankColors[rank] || "bg-muted"}`}>
+          <span className="text-[10px] font-bold text-white">{rank + 1}</span>
+        </div>
         <div className="min-w-0 flex-1">
-          <div className="flex items-center gap-2">
-            <Badge variant="secondary" className="text-[10px] px-1.5 py-0">
-              {getCategoryLabel(item.category)}
-            </Badge>
-            <span className="text-[11px] text-muted-foreground">
-              {SOURCE_LABELS[item.source] || item.source}
-            </span>
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs">{getCategoryIcon(item.category)}</span>
+            <span className="text-[10px] text-muted-foreground">{SOURCE_LABELS[item.source] || item.source}</span>
           </div>
-          <p className="mt-1 text-sm font-medium leading-snug group-hover:text-primary transition-colors line-clamp-2">
+          <p className="mt-0.5 text-xs font-medium leading-snug group-hover:text-primary transition-colors line-clamp-1">
             {item.title}
           </p>
-          <div className="mt-1 flex items-center gap-3 text-[11px] text-muted-foreground">
-            {timeAgo && (
-              <span className="flex items-center gap-1">
-                <Clock className="h-3 w-3" /> {timeAgo}
-              </span>
-            )}
-            <span className="flex items-center gap-1">
-              <Star className="h-3 w-3" /> {item.score.toFixed(0)}
-            </span>
-            {item.trend_score > 0 && (
-              <span className="flex items-center gap-1">
-                <TrendingUp className="h-3 w-3" /> {item.trend_score.toFixed(0)}
-              </span>
-            )}
+          <div className="mt-0.5 flex items-center gap-2 text-[10px] text-muted-foreground">
+            {timeAgo && <span className="flex items-center gap-0.5"><Clock className="h-2.5 w-2.5" />{timeAgo}</span>}
+            <span className="flex items-center gap-0.5"><Star className="h-2.5 w-2.5 fill-yellow-400 text-yellow-400" />{item.score.toFixed(0)}</span>
           </div>
         </div>
-      </Card>
+      </div>
     </Link>
   )
 }

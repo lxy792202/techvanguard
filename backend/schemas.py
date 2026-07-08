@@ -2,10 +2,12 @@
 
 from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class ItemResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     source: str
     source_id: str
@@ -16,11 +18,8 @@ class ItemResponse(BaseModel):
     tags: str
     score: float
     trend_score: float
-    published_at: Optional[str] = None
-    collected_at: Optional[str] = None
-
-    class Config:
-        from_attributes = True
+    published_at: Optional[datetime] = None
+    collected_at: Optional[datetime] = None
 
 
 class ItemListResponse(BaseModel):
@@ -29,16 +28,16 @@ class ItemListResponse(BaseModel):
 
 
 class CollectRequest(BaseModel):
-    sources: Optional[list[str]] = None  # None = all enabled sources
+    sources: Optional[list[str]] = None
 
 
 class CollectProgress(BaseModel):
     source: str
-    status: str  # collecting / summarizing / classifying / done / error
+    status: str
     message: str
     item_count: int = 0
 
 
 class TrendData(BaseModel):
-    keywords: list[dict]  # [{word, count, trend}]
-    timeline: list[dict]  # [{date, category, count}]
+    keywords: list[dict]
+    timeline: list[dict]

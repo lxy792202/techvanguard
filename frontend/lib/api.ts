@@ -89,6 +89,25 @@ export function createSSEConnection(
   return es
 }
 
+export async function fetchDigest(): Promise<DigestData> {
+  const res = await fetch(`${API_BASE}/api/digest`)
+  if (!res.ok) throw new Error("Failed to fetch digest")
+  return res.json()
+}
+
+export interface DigestData {
+  title: string
+  sections: DigestSection[]
+  summary: string
+  items: Item[]
+}
+
+export interface DigestSection {
+  topic: string
+  content: string
+  source_ids: number[]
+}
+
 /** Category display config */
 export const CATEGORY_CONFIG: Record<string, { label: string; icon: string; color: string }> = {
   paper: { label: "论文", icon: "📄", color: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200" },

@@ -5,7 +5,7 @@ import feedparser
 from datetime import datetime, timezone
 from typing import Optional
 
-ARXIV_API_URL = "http://export.arxiv.org/api/query"
+ARXIV_API_URL = "https://export.arxiv.org/api/query"
 
 
 async def collect_arxiv(

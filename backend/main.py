@@ -232,6 +232,14 @@ async def search_items(
     )
 
 
+@app.get("/api/digest")
+async def get_digest():
+    """Get AI-generated daily tech digest."""
+    from agents.digest import generate_digest
+    digest = await generate_digest()
+    return digest
+
+
 # ── Background collection pipeline ───────────────────────────────────
 
 async def _run_collection(sources: list[str]):
